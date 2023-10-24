@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Dashboard } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { isNumber } from 'util';
 
 @Injectable()
 export class DashboardService {
@@ -8,7 +9,7 @@ export class DashboardService {
 
     constructor(private prismaService: PrismaService) { }
 
-    async getConfig(): Promise<Array<Dashboard>> {
+    async get(): Promise<Array<Dashboard>> {
         let pages: Array<Dashboard> = [];
 
         await this.prismaService.dashboard.findMany()
@@ -22,7 +23,7 @@ export class DashboardService {
         return pages;
     }
 
-    async createDashboard(dashboard: Dashboard): Promise<Dashboard> {
+    async create(dashboard: Dashboard): Promise<Dashboard> {
         return await this.prismaService.dashboard
             .create(
                 { data: { header: dashboard.header } })
@@ -31,15 +32,13 @@ export class DashboardService {
             });
     }
 
-    editDashboard(id: number, dashboard: Dashboard): void {
+    update(id: number, dashboard: Dashboard): void {
         //this.pages[id].header = dashboard.header;
     }
 
-    async deleteDashboard(id: number): Promise<void> {
-        var tt = await this.prismaService.dashboard.delete({
+    async delete(id: number): Promise<Dashboard> {
+        return await this.prismaService.dashboard.delete({
             where: { id: id }
-        });
-
-        console.log(tt);
+        })
     }
 }
