@@ -1,5 +1,4 @@
-version: '3'
-
+version: '3.8'
 services:
   app:
     build:
@@ -7,4 +6,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
+  
+  dev-db:
+    image: postgres:16
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: stocks
+     
 
