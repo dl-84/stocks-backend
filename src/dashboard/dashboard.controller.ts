@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Global, Post, Put, Param, ParseIntPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put, Param, ParseIntPipe } from '@nestjs/common';
 import { Dashboard } from '@prisma/client';
 
 import { DashboardService } from './dashboard.service';
@@ -9,7 +9,7 @@ export class DashboardController {
 
     @Get()
     getConfig(): Promise<Array<Dashboard>> {
-        return this.dashboardService.getConfig();
+        return this.dashboardService.getDashboards();
     }
 
     @Post()
@@ -19,7 +19,7 @@ export class DashboardController {
 
     @Put()
     editDashboard(@Body() dashboard: Dashboard): Promise<Dashboard> {
-        return this.dashboardService.editDashboard(dashboard);
+        return this.dashboardService.updateDashboard(dashboard);
     }
 
     @Delete(':id')
