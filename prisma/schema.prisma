@@ -11,28 +11,21 @@ datasource db {
 }
 
 model Dashboard {
-  id Int @id @default(autoincrement())
+  id     Int    @id @default(autoincrement())
   header String
-
-  stocks Stock[]
-
-  @@map("dashboards")
 }
 
-model Stock{
-  currency String?
-  description String?
-  displaySymbol String?
-  figi String @id
-  isin String?
-  mic String?
-  shareClassFIGI String?
-  symbol String
-  symbol2 String?
-  type String?
-
+model Stock {
   dashboardId Int
-  dashboard Dashboard @relation(fields: [dashboardId], references: [id])
+  figi        String @id
 
-  @@map("stocks")
+  currency       String?
+  description    String?
+  displaySymbol  String?
+  isin           String?
+  mic            String?
+  shareClassFIGI String?
+  symbol         String
+  symbol2        String?
+  type           String?
 }
