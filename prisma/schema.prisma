@@ -13,4 +13,26 @@ datasource db {
 model Dashboard {
   id Int @id @default(autoincrement())
   header String
+
+  stocks Stock[]
+
+  @@map("dashboards")
+}
+
+model Stock{
+  currency String?
+  description String?
+  displaySymbol String?
+  figi String @id
+  isin String?
+  mic String?
+  shareClassFIGI String?
+  symbol String
+  symbol2 String?
+  type String?
+
+  dashboardId Int
+  dashboard Dashboard @relation(fields: [dashboardId], references: [id])
+
+  @@map("stocks")
 }
