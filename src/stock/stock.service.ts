@@ -9,7 +9,10 @@ export class StockService {
     async getStockByDashboardId(dashboardId: number): Promise<Array<Stock>> {
         let stocks: Array<Stock> = [];
 
-        await this.prismaService.stock.findMany()
+        await this.prismaService.stock.findMany(
+            {
+                where: { dashboardId: dashboardId }
+            })
             .then(entries => {
                 entries.forEach(
                     entry => {
@@ -65,27 +68,6 @@ export class StockService {
                     type: entry.type,
                 };
             });
-    }
-
-    async updateStock(stock: Stock): Promise<Stock> {
-        return await this.prismaService.stock.update({
-            where: {
-                figi: stock.figi,
-            },
-            data: {
-                dashboardId: stock.dashboardId,
-                figi: stock.figi,
-                currency: stock.currency,
-                description: stock.description,
-                displaySymbol: stock.displaySymbol,
-                isin: stock.isin,
-                mic: stock.mic,
-                shareClassFIGI: stock.shareClassFIGI,
-                symbol: stock.symbol,
-                symbol2: stock.symbol2,
-                type: stock.type,
-            }
-        });
     }
 
     async deleteStock(figi: string): Promise<Stock> {

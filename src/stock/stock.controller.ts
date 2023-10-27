@@ -17,11 +17,6 @@ export class StockController {
         return this.stockService.createStock(stock);
     }
 
-    @Put()
-    editDashboard(@Body() stock: Stock): Promise<Stock> {
-        return this.stockService.updateStock(stock);
-    }
-
     @Delete(':figi')
     deleteDashboard(@Param('figi') figi: string): Promise<Stock> {
         return this.stockService.deleteStock(figi);
