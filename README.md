@@ -8,4 +8,4 @@
 - Open .env file and ensure thats only the url number 2 is active.
 
 ## Step 4
-- run "npm run migrate dev" at an another terminal at the root folder of this project.
+- run "npx prisma migrate dev" at an another terminal at the root folder of this project.
