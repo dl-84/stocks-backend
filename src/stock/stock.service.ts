@@ -6,7 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class StockService {
     constructor(private prismaService: PrismaService) { }
 
-    async getStockByDashboardId(dashboardId: number): Promise<Array<Stock>> {
+    async getStocksByDashboardId(dashboardId: number): Promise<Array<Stock>> {
         let stocks: Array<Stock> = [];
 
         await this.prismaService.stock.findMany(
@@ -74,6 +74,14 @@ export class StockService {
         return await this.prismaService.stock.delete({
             where: {
                 figi: figi,
+            }
+        });
+    }
+
+    async deleteAllStocksByDashboardId(dashboardId: number): Promise<any> {
+        return await this.prismaService.stock.deleteMany({
+            where: {
+                dashboardId: dashboardId
             }
         });
     }

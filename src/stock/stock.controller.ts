@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, Put, Param, ParseIntPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { Stock } from '@prisma/client';
 
 import { StockService } from './stock.service';
@@ -8,17 +8,22 @@ export class StockController {
     constructor(private readonly stockService: StockService) { }
 
     @Get(':dashboardId')
-    getConfig(@Param('dashboardId', ParseIntPipe) dashboardId: number): Promise<Array<Stock>> {
-        return this.stockService.getStockByDashboardId(dashboardId);
+    getStocksByDashboardId(@Param('dashboardId', ParseIntPipe) dashboardId: number): Promise<Array<Stock>> {
+        return this.stockService.getStocksByDashboardId(dashboardId);
     }
 
     @Post()
-    createDashboard(@Body() stock: Stock): Promise<Stock> {
+    createStock(@Body() stock: Stock): Promise<Stock> {
         return this.stockService.createStock(stock);
     }
 
     @Delete(':figi')
-    deleteDashboard(@Param('figi') figi: string): Promise<Stock> {
+    deleteStockByFigi(@Param('figi') figi: string): Promise<Stock> {
         return this.stockService.deleteStock(figi);
+    }
+
+    @Delete()
+    deleteAllStocksByDashboardId(@Query('dashboardId', ParseIntPipe) dashboardId: number): Promise<Stock> {
+        return this.stockService.deleteAllStocksByDashboardId(dashboardId);
     }
 }
