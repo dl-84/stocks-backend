@@ -8,7 +8,8 @@ export class StockController {
     constructor(private readonly stockService: StockService) { }
 
     @Get(':dashboardId')
-    getStocksByDashboardId(@Param('dashboardId', ParseIntPipe) dashboardId: number): Promise<Array<Stock>> {
+    getStocksByDashboardId(
+        @Param('dashboardId', ParseIntPipe) dashboardId: number): Promise<Array<Stock>> {
         return this.stockService.getStocksByDashboardId(dashboardId);
     }
 
@@ -23,7 +24,8 @@ export class StockController {
     }
 
     @Delete()
-    deleteAllStocksByDashboardId(@Query('dashboardId', ParseIntPipe) dashboardId: number): Promise<Stock> {
+    deleteAllStocksByDashboardId(
+        @Query('dashboardId', ParseIntPipe) dashboardId: number): Promise<Stock> {
         return this.stockService.deleteAllStocksByDashboardId(dashboardId);
     }
 }
